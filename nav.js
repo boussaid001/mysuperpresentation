@@ -1,10 +1,12 @@
-/* Shared Arrow Key Navigation + Cinematic Entrance */
+/* ── SRTV Navigation + Progress Bar ── */
 (function () {
-    const path = window.location.pathname;
-    const match = path.match(/slide-(\d+)/);
+    'use strict';
+
+    const path    = window.location.pathname;
+    const match   = path.match(/slide-(\d+)/);
     const current = match ? parseInt(match[1], 10) : 0;
-    const isRoot = !match && (path.endsWith('index.html') || path.endsWith('/'));
-    const total = 33;
+    const isRoot  = !match && (path.endsWith('index.html') || path.endsWith('/'));
+    const total   = 34;
 
     function slideUrl(n) {
         return `slide-${String(n).padStart(2, '0')}/index.html`;
@@ -12,36 +14,38 @@
 
     function goToSlide(n) {
         if (n < 1 || n > total) return;
+        const direction = n > current ? 'forward' : 'back';
         const target = isRoot ? slideUrl(n) : `../${slideUrl(n)}`;
-
-        // Trigger exit transition on forward navigation
-        if (n > current && window.__playTransition) {
-            window.__playTransition(target);
-            return;
+        if (window.__playTransition) {
+            window.__playTransition(target, direction);
+        } else {
+            window.location.href = target;
         }
-
-        window.location.href = target;
     }
 
-    document.addEventListener('keydown', (e) => {
+    /* ── Keyboard navigation ── */
+    document.addEventListener('keydown', function (e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-            e.preventDefault();
-            goToSlide(current + 1);
+            e.preventDefault(); goToSlide(current + 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            e.preventDefault();
-            goToSlide(current - 1);
+            e.preventDefault(); goToSlide(current - 1);
         } else if (e.key === 'Home') {
-            e.preventDefault();
-            goToSlide(1);
+            e.preventDefault(); goToSlide(1);
         } else if (e.key === 'End') {
-            e.preventDefault();
-            goToSlide(total);
+            e.preventDefault(); goToSlide(total);
         }
     });
 
-    // Small SRTV logo on all slides except the cover (not on root index)
+    /* ── Touch / swipe navigation ── */
+    let touchStartX = 0;
+    document.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+        const dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 60) { dx > 0 ? goToSlide(current + 1) : goToSlide(current - 1); }
+    }, { passive: true });
+
+    /* ── SRTV logo (all slides except cover) ── */
     if (match && current > 1) {
         const logo = document.createElement('img');
         logo.className = 'slide-logo';
@@ -50,62 +54,30 @@
         document.body.appendChild(logo);
     }
 
-    /* ── Cinematic Entrance on page load ── */
-    (function entrance() {
-        let direction = null;
-        try { direction = sessionStorage.getItem('slideTransition'); } catch (e) {}
-        if (!direction) return;
+    /* ── Progress bar ── */
+    if (match && current >= 1) {
+        const bar = document.createElement('div');
+        bar.id = 'srtv-progress';
+        bar.style.cssText = [
+            'position:fixed;bottom:0;left:0;height:3px;z-index:9000;',
+            'background:linear-gradient(90deg,#0077cc,#6366f1,#10b981);',
+            'border-radius:0 3px 3px 0;',
+            'transition:width 0.6s cubic-bezier(0.22,1,0.36,1);',
+            'opacity:0;'
+        ].join('');
+        document.body.appendChild(bar);
 
-        // Clear the flag immediately
-        try { sessionStorage.removeItem('slideTransition'); } catch (e) {}
+        /* Animate in after a short delay */
+        setTimeout(function () {
+            bar.style.opacity = '1';
+            bar.style.width = ((current / total) * 100) + '%';
+        }, 400);
+    }
 
-        // Wrap body children in a content container for the entrance effect
-        const wrapper = document.createElement('div');
-        wrapper.className = 'enter-content';
-
-        // Move all direct body children into the wrapper
-        while (document.body.firstChild) {
-            wrapper.appendChild(document.body.firstChild);
-        }
-        document.body.appendChild(wrapper);
-
-        // Create the dark veil
-        const veil = document.createElement('div');
-        veil.className = 'enter-veil';
-        document.body.appendChild(veil);
-
-        // Create sweep line
-        const sweepLine = document.createElement('div');
-        sweepLine.className = 'enter-sweep-line';
-        document.body.appendChild(sweepLine);
-
-        // Force reflow
-        void document.body.offsetHeight;
-
-        // Start entrance: content pushed toward viewer + blurry
-        document.body.classList.add('enter-start');
-
-        // Small delay then lift veil and sweep line
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                veil.classList.add('lifting');
-                sweepLine.classList.add('active');
-
-                // Settle content to normal
-                document.body.classList.add('enter-done');
-
-                // Cleanup after animation
-                setTimeout(function () {
-                    veil.remove();
-                    sweepLine.remove();
-                    document.body.classList.remove('enter-start', 'enter-done');
-                    // Unwrap: move children back to body
-                    while (wrapper.firstChild) {
-                        document.body.appendChild(wrapper.firstChild);
-                    }
-                    wrapper.remove();
-                }, 1200);
-            });
-        });
-    })();
+    /* ── Nav counter: replace "02 / 34" format with styled version ── */
+    document.addEventListener('DOMContentLoaded', function () {
+        const navEl = document.querySelector('.nav-year');
+        if (!navEl || !match) return;
+        navEl.innerHTML = `<span class="nav-current">${current}</span><span class="nav-sep"> / </span><span class="nav-total">${total}</span>`;
+    });
 })();

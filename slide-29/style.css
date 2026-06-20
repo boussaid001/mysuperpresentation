@@ -1,4 +1,4 @@
-/* Slide 16 : Conclusion */
+/* Section divider slide — simple */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -6,50 +6,47 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(160deg, #f0f4f8 0%, #f8fafc 50%, #eef2f7 100%);
-    color: #1e293b;
+    background: #0f172a;
+    color: #fff;
     overflow: hidden;
 }
 
-/* ── Ambient Orbs ── */
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .ambient-orb {
     position: fixed;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(140px);
     pointer-events: none;
     z-index: 0;
     opacity: 0;
+    animation: orbAppear 1s ease forwards;
 }
+
 .orb-1 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(0,119,204,0.22) 0%, transparent 70%);
-    top: -10%; right: -5%;
-    animation: orbFloat1 28s ease-in-out infinite alternate, orbAppear 1.2s ease forwards;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+    top: -10%; left: -5%;
+    animation: orbFloat1 28s ease-in-out infinite alternate, orbAppear 1s ease forwards;
 }
 .orb-2 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 70%);
-    bottom: -8%; left: -8%;
-    animation: orbFloat2 32s ease-in-out infinite alternate, orbAppear 1.2s ease 0.3s forwards;
-}
-.orb-3 {
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(99,102,241,0.16) 0%, transparent 70%);
-    top: 40%; left: 35%;
-    animation: orbFloat3 36s ease-in-out infinite alternate, orbAppear 1.2s ease 0.6s forwards;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    bottom: -10%; right: -5%;
+    animation: orbFloat2 32s ease-in-out infinite alternate, orbAppear 1s ease 0.3s forwards;
 }
+.orb-3 { display: none; }
+
 @keyframes orbAppear { to { opacity: 1; } }
-@keyframes orbFloat1 { 0%{transform:translate(0,0)} 100%{transform:translate(-40px,50px)} }
-@keyframes orbFloat2 { 0%{transform:translate(0,0)} 100%{transform:translate(30px,-40px)} }
-@keyframes orbFloat3 { 0%{transform:translate(0,0)} 100%{transform:translate(20px,30px)} }
+@keyframes orbFloat1 { 0%{transform:translate(0,0)} 100%{transform:translate(40px,50px)} }
+@keyframes orbFloat2 { 0%{transform:translate(0,0)} 100%{transform:translate(-30px,-40px)} }
 
-/* ── Background Canvas ── */
-#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-
-/* ═══════════════════════════════════════════════════════════════
-   SLIDE
-   ═══════════════════════════════════════════════════════════════ */
-.slide {
+.section {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -57,150 +54,60 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3vh 4vw 10vh;
-    gap: 3vh;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   HEADER
-   ═══════════════════════════════════════════════════════════════ */
-.slide__header {
+    justify-content: center;
     text-align: center;
-    flex-shrink: 0;
-    opacity: 0;
-    transform: translateY(-25px);
+    padding: 2rem;
+    gap: 1rem;
 }
 
-.slide__title {
+.section__eyebrow {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1.1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-start);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 0.5rem 1.1rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInDown 0.6s ease 0.3s forwards;
+}
+
+.section__number {
+    display: none;
+}
+
+.section__title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    font-weight: 700;
+    color: #fff;
     letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 900px;
     opacity: 0;
     transform: translateY(15px);
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
 }
-.slide__title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 5px;
-    background: linear-gradient(90deg, #0077cc, #6366f1, #10b981);
-    border-radius: 3px;
-    margin: 14px auto 0;
+
+.section__line {
+    width: 70px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+    margin-top: 0.8rem;
+    opacity: 0;
     transform: scaleX(0);
-    animation: lineGrow 0.7s ease 1s forwards;
-}
-@keyframes lineGrow { to { transform: scaleX(1); } }
-
-.slide__subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    font-weight: 400;
-    color: #64748b;
-    margin-top: 0.6rem;
-    opacity: 0;
-    transform: translateY(10px);
+    animation: lineGrow 0.6s ease 0.8s forwards;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CONCLUSION CARDS
-   ═══════════════════════════════════════════════════════════════ */
-.concl-wrap {
-    width: 100%;
-    max-width: 900px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    flex: 1;
-    align-content: center;
-    padding: 0 1rem;
-}
+@keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes lineGrow { to { opacity: 1; transform: scaleX(1); } }
 
-.concl-card {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 1.6rem 1.6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    box-shadow: 0 8px 24px rgba(15,23,42,0.06), 0 1px 4px rgba(15,23,42,0.03);
-    border: 1px solid rgba(0,119,204,0.08);
-    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
-    opacity: 0;
-    transform: scale(0.9) translateY(15px);
-}
-
-.concl-card:hover {
-    transform: scale(1.03) translateY(-3px);
-    box-shadow: 0 14px 36px rgba(15,23,42,0.1), 0 3px 8px rgba(15,23,42,0.05);
-}
-
-.concl-card--highlight {
-    background: linear-gradient(145deg, #f0f9ff 0%, #ffffff 100%);
-    border: 1px solid rgba(14,165,233,0.15);
-}
-
-.concl-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background: linear-gradient(135deg, #0077cc, #6366f1);
-    box-shadow: 0 4px 14px rgba(0,119,204,0.25);
-}
-
-.concl-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-.concl-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-.concl-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 400;
-    color: #64748b;
-    line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CONCLUSION SUMMARY
-   ═══════════════════════════════════════════════════════════════ */
-.concl-summary {
-    max-width: 700px;
-    text-align: center;
-    padding: 0.8rem 1.6rem;
-    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-    border: 1px solid rgba(16,185,129,0.15);
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(16,185,129,0.08);
-    opacity: 0;
-    transform: translateY(10px);
-}
-
-.concl-summary__text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #475569;
-    line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   NAVIGATION FOOTER
-   ═══════════════════════════════════════════════════════════════ */
 .navigation {
     position: fixed;
     bottom: 1.6rem;
@@ -208,6 +115,7 @@ html, body {
     transform: translateX(-50%);
     z-index: 10;
     opacity: 0;
+    animation: fadeIn 0.6s ease 1.2s forwards;
 }
 
 .nav-year {
@@ -216,42 +124,26 @@ html, body {
     font-family: 'Outfit', sans-serif;
     font-size: 0.78rem;
     font-weight: 600;
-    color: #64748b;
-    background: rgba(255,255,255,0.9);
+    color: #94a3b8;
+    background: rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     padding: 0.6rem 1.4rem;
     border-radius: 14px;
-    border: 1px solid rgba(0,119,204,0.12);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   REDUCED MOTION
-   ═══════════════════════════════════════════════════════════════ */
+@keyframes fadeIn { to { opacity: 1; } }
+
 @media (prefers-reduced-motion: reduce) {
-    .ambient-orb,
-    .slide__header,
-    .slide__title,
-    .slide__subtitle,
-    .concl-card,
-    .concl-summary,
-    .navigation {
+    .section__eyebrow, .section__title, .section__line, .navigation, .ambient-orb {
+        animation: none !important;
         opacity: 1 !important;
         transform: none !important;
-        animation: none !important;
     }
 }
 
-
-
-/* Title visibility enhancement */
-.slide__title,
-.plan__title,
-.cover__title,
-.merci-title,
-.demo-title {
-    font-size: clamp(3rem, 5.5vw, 4.8rem) !important;
-    font-weight: 700 !important;
-    line-height: 1.1 !important;
+@media (max-width: 720px) {
+    .section__title {
+        font-size: 2rem;
+    }
 }

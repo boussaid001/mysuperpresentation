@@ -1,93 +1,149 @@
-/* Section divider background */
-document.addEventListener('DOMContentLoaded', () => {
+/* Slide 22 : CI/CD Pipeline SRTV */
+
+document.addEventListener('DOMContentLoaded', function () {
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canvas = document.getElementById('bg-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    const particles = [];
-    const shapes = [];
-    const PARTICLE_COUNT = 70;
-    const MAX_DIST = 150;
 
-    function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+    /* ═══════════════════════════════════════════════════════════
+       JENKINS OVERLAY – step system
+       First → : show overlay
+       Second → : navigate to next slide
+       ═══════════════════════════════════════════════════════════ */
+    const overlay   = document.getElementById('jenkins-overlay');
+    const thumb     = document.getElementById('jenkins-thumb');
+    const closeBtn  = document.getElementById('jenkins-close');
+    let   overlayOpen = false;
+
+    function openOverlay() {
+        overlayOpen = true;
+        overlay.classList.add('is-open');
     }
-    resize();
-    window.addEventListener('resize', resize);
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            vx: (Math.random() - 0.5) * 0.25,
-            vy: (Math.random() - 0.5) * 0.25,
-            r: Math.random() * 2 + 0.6,
-        });
+    function closeOverlay() {
+        overlayOpen = false;
+        overlay.classList.remove('is-open');
     }
 
-    const style = getComputedStyle(document.body);
-    const accent = style.getPropertyValue('--accent-start').trim() || '#0077cc';
-    const rgba = (opacity) => {
-        const rgb = accent.startsWith('#') ? accent.replace('#','') : '0077cc';
-        const r = parseInt(rgb.substring(0,2), 16);
-        const g = parseInt(rgb.substring(2,4), 16);
-        const b = parseInt(rgb.substring(4,6), 16);
-        return `rgba(${r},${g},${b},${opacity})`;
-    };
+    thumb.addEventListener('click', openOverlay);
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.querySelector('.jenkins-overlay__backdrop').addEventListener('click', closeOverlay);
 
-    const shapeColors = [rgba(0.08), 'rgba(255,255,255,0.05)', rgba(0.06)];
-    for (let i = 0; i < 7; i++) {
-        shapes.push({
-            x: Math.random() * w, y: Math.random() * h,
-            size: Math.random() * 16 + 8,
-            type: ['circle', 'triangle', 'square'][Math.floor(Math.random() * 3)],
-            color: shapeColors[Math.floor(Math.random() * shapeColors.length)],
-            speed: Math.random() * 0.2 + 0.05,
-            angle: Math.random() * Math.PI * 2,
-        });
-    }
+    /* Intercept nav.js keyboard BEFORE it handles it */
+    document.addEventListener('keydown', function (e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    function drawShape(s) {
-        ctx.save();
-        ctx.translate(s.x, s.y);
-        ctx.fillStyle = s.color;
-        ctx.beginPath();
-        if (s.type === 'circle') ctx.arc(0, 0, s.size, 0, Math.PI * 2);
-        else if (s.type === 'triangle') { ctx.moveTo(0,-s.size); ctx.lineTo(s.size,s.size); ctx.lineTo(-s.size,s.size); ctx.closePath(); }
-        else ctx.rect(-s.size/2, -s.size/2, s.size, s.size);
-        ctx.fill();
-        ctx.restore();
-    }
-
-    function animate() {
-        if (prefersReduced) return;
-        ctx.clearRect(0, 0, w, h);
-        for (const s of shapes) {
-            s.x += Math.cos(s.angle) * s.speed; s.y += Math.sin(s.angle) * s.speed;
-            if (s.x < -50) s.x = w + 50; if (s.x > w + 50) s.x = -50;
-            if (s.y < -50) s.y = h + 50; if (s.y > h + 50) s.y = -50;
-            drawShape(s);
+        if (e.key === 'Escape' && overlayOpen) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            closeOverlay();
+            return;
         }
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.vx; p.y += p.vy;
-            if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-            if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = rgba(0.18); ctx.fill();
-            for (let j = i + 1; j < particles.length; j++) {
-                const q = particles[j], dx = p.x - q.x, dy = p.y - q.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < MAX_DIST) {
-                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-                    ctx.strokeStyle = rgba(0.06 * (1 - dist/MAX_DIST));
-                    ctx.lineWidth = 1; ctx.stroke();
-                }
+
+        /* Right/Space/Down: first press opens overlay, second press navigates */
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+            if (!overlayOpen) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                openOverlay();
+                return;
             }
+            /* overlay is open → let nav.js handle next navigation */
+            closeOverlay();
+            /* fall through to nav.js */
         }
-        requestAnimationFrame(animate);
+
+        /* Left/Up: close overlay if open, otherwise nav.js handles it */
+        if ((e.key === 'ArrowLeft' || e.key === 'ArrowUp') && overlayOpen) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            closeOverlay();
+        }
+    }, true); /* capture phase – fires before nav.js listener */
+
+    /* ═══════════════════════════════════════════════════════════
+       ENTRANCE SEQUENCE
+       ═══════════════════════════════════════════════════════════ */
+    if (prefersReduced) {
+        document.querySelectorAll(
+            '.slide__header,.slide__eyebrow,.slide__title,.slide__subtitle,' +
+            '.pipeline,.lane-label,.pipe-row,.pipe-node,.pipe-arrow,' +
+            '.connector-vps,.jenkins-thumb,.navigation'
+        ).forEach(function (el) {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
+        return;
     }
-    animate();
+
+    function reveal(el, delay, dur, ease) {
+        if (!el) return;
+        dur  = dur  || 650;
+        ease = ease || 'cubic-bezier(0.22,1,0.36,1)';
+        setTimeout(function () {
+            el.style.transition = 'opacity ' + dur + 'ms ' + ease + ', transform ' + dur + 'ms ' + ease;
+            el.style.opacity    = '1';
+            el.style.transform  = 'none';
+        }, delay);
+    }
+
+    var rows  = document.querySelectorAll('.pipe-row');
+    var vpsConnector = document.querySelector('.connector-vps');
+    var lanes = document.querySelectorAll('.lane-label');
+
+    /* Header */
+    reveal(document.querySelector('.slide__header'),   120, 700);
+    reveal(document.querySelector('.slide__eyebrow'),  200, 500, 'ease');
+    reveal(document.querySelector('.slide__title'),    320, 750);
+    reveal(document.querySelector('.slide__subtitle'), 500, 550, 'ease');
+
+    /* Pipeline wrapper */
+    reveal(document.querySelector('.pipeline'), 600, 500, 'ease');
+
+    /* CI lane label */
+    reveal(lanes[0], 700, 500, 'ease');
+
+    /* Row 1: nodes left-to-right, arrows between */
+    reveal(rows[0], 780, 500, 'ease');
+    var ciNodes  = rows[0] ? rows[0].querySelectorAll('.pipe-node')  : [];
+    var ciArrows = rows[0] ? rows[0].querySelectorAll('.pipe-arrow') : [];
+    ciNodes.forEach(function (n, i)  { reveal(n, 860 + i * 100, 520); });
+    ciArrows.forEach(function (a, i) {
+        var delay = 920 + i * 100;
+        reveal(a, delay, 380, 'ease');
+        setTimeout(function () {
+            a.classList.add('is-animated');
+            var dot = a.querySelector('.dot');
+            if (dot) dot.style.animationDelay = (i * 0.4) + 's';
+        }, delay + 400);
+    });
+
+    /* Central VPS connector (Hub → VPS → Pull) */
+    reveal(vpsConnector, 1480, 550, 'ease');
+
+    /* VPS row */
+    reveal(rows[1], 1600, 560);
+    reveal(rows[1] ? rows[1].querySelector('.pipe-node') : null, 1680, 600);
+
+    /* CD lane label */
+    reveal(lanes[1], 1960, 500, 'ease');
+
+    /* Row 3: CD nodes */
+    reveal(rows[2], 2020, 500, 'ease');
+    var cdNodes  = rows[2] ? rows[2].querySelectorAll('.pipe-node')  : [];
+    var cdArrows = rows[2] ? rows[2].querySelectorAll('.pipe-arrow') : [];
+    cdNodes.forEach(function (n, i)  { reveal(n, 2100 + i * 110, 520); });
+    cdArrows.forEach(function (a, i) {
+        var delay = 2160 + i * 110;
+        reveal(a, delay, 380, 'ease');
+        setTimeout(function () {
+            a.classList.add('is-animated');
+            var dot = a.querySelector('.dot');
+            if (dot) dot.style.animationDelay = (i * 0.5) + 's';
+        }, delay + 400);
+    });
+
+    /* Jenkins thumbnail */
+    reveal(document.querySelector('.jenkins-thumb'), 2700, 600);
+
+    /* Nav pill */
+    reveal(document.querySelector('.navigation'), 2800, 500, 'ease');
 });
