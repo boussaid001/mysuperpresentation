@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide 08 : Analyse et spécification des besoins</title>
+    <title>Slide 12 : Analyse et spécification des besoins</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,116 +22,104 @@
             <h1 class="slide__title">Analyse et spécification des besoins</h1>
         </header>
 
-        <!-- Actors -->
-        <div class="actors__label">Acteurs du système</div>
-        <div class="actors__grid">
+        <div class="needs-table">
+            <div class="needs-table__header">
+                <div class="needs-table__badge">
+                    <span class="needs-table__badge-dot"></span>
+                    Besoins fonctionnels par acteur
+                </div>
+            </div>
 
-            <div class="actor__card" data-delay="0">
-                <div class="actor__card-inner">
-                    <div class="actor__icon actor__icon--indigo">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            <div class="needs-table__grid">
+                <div class="needs-table__row needs-table__row--head">
+                    <div class="needs-table__cell">Acteur</div>
+                    <div class="needs-table__cell">Rôle principal</div>
+                    <div class="needs-table__cell">Besoins fonctionnels clés</div>
+                </div>
+
+                <div class="needs-table__row needs-table__row--indigo" data-delay="0">
+                    <div class="needs-table__cell needs-table__cell--actor">
+                        <span class="needs-table__dot needs-table__dot--indigo"></span>
+                        Super Admin
                     </div>
-                    <h3 class="actor__name">Super Admin</h3>
-                    <p class="actor__role">Supervise la plateforme, gère les comptes, attribue les rôles et modère les contenus signalés.</p>
-                </div>
-            </div>
-
-            <div class="actor__card" data-delay="1">
-                <div class="actor__card-inner">
-                    <div class="actor__icon actor__icon--blue">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 4h4v3h-4V4zm10 15H4V9h16v10z"/></svg>
+                    <div class="needs-table__cell needs-table__cell--role">Supervision, comptes et modération</div>
+                    <div class="needs-table__cell needs-table__cell--needs">
+                        <ul class="needs-table__list">
+                            <li>Gestion des comptes et rôles</li>
+                            <li>Modération des contenus signalés</li>
+                            <li>Tableau de bord global</li>
+                        </ul>
                     </div>
-                    <h3 class="actor__name">Business Manager</h3>
-                    <p class="actor__role">Administre les établissements touristiques et suit leurs performances via un tableau de bord.</p>
                 </div>
-            </div>
 
-            <div class="actor__card" data-delay="2">
-                <div class="actor__card-inner">
-                    <div class="actor__icon actor__icon--purple">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11zM8 15h8v2H8v-2zm-2-4h4v2H6v-2zm0-4h4v2H6V7zm6 0h4v2h-4V7zm0 4h4v2h-4v-2z"/></svg>
+                <div class="needs-table__row needs-table__row--blue" data-delay="1">
+                    <div class="needs-table__cell needs-table__cell--actor">
+                        <span class="needs-table__dot needs-table__dot--blue"></span>
+                        Business Manager
                     </div>
-                    <h3 class="actor__name">Content Manager</h3>
-                    <p class="actor__role">Crée, publie et modère les contenus multimédias : Reels et sessions de livestream.</p>
-                </div>
-            </div>
-
-            <div class="actor__card" data-delay="3">
-                <div class="actor__card-inner">
-                    <div class="actor__icon actor__icon--orange">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                    <div class="needs-table__cell needs-table__cell--role">Administration des établissements touristiques</div>
+                    <div class="needs-table__cell needs-table__cell--needs">
+                        <ul class="needs-table__list">
+                            <li>Administration restaurants & hébergement</li>
+                            <li>Gestion expériences & destinations</li>
+                            <li>Gestion des événements</li>
+                            <li>Tableau de bord métier</li>
+                        </ul>
                     </div>
-                    <h3 class="actor__name">Chauffeur</h3>
-                    <p class="actor__role">Gère sa disponibilité, partage sa position GPS, accepte les courses et consulte ses revenus.</p>
                 </div>
-            </div>
 
-            <div class="actor__card" data-delay="4">
-                <div class="actor__card-inner">
-                    <div class="actor__icon actor__icon--emerald">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/></svg>
+                <div class="needs-table__row needs-table__row--purple" data-delay="2">
+                    <div class="needs-table__cell needs-table__cell--actor">
+                        <span class="needs-table__dot needs-table__dot--purple"></span>
+                        Content Manager
                     </div>
-                    <h3 class="actor__name">Voyageur</h3>
-                    <p class="actor__role">Explore la région, interagit avec LINA, visionne les contenus, réserve et publie des avis.</p>
+                    <div class="needs-table__cell needs-table__cell--role">Gestion des contenus multimédias</div>
+                    <div class="needs-table__cell needs-table__cell--needs">
+                        <ul class="needs-table__list">
+                            <li>Administration des Reels</li>
+                            <li>Administration des livestreams</li>
+                            <li>Tableau de bord éditorial</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+                <div class="needs-table__row needs-table__row--orange" data-delay="3">
+                    <div class="needs-table__cell needs-table__cell--actor">
+                        <span class="needs-table__dot needs-table__dot--orange"></span>
+                        Chauffeur
+                    </div>
+                    <div class="needs-table__cell needs-table__cell--role">Transport à la demande</div>
+                    <div class="needs-table__cell needs-table__cell--needs">
+                        <ul class="needs-table__list">
+                            <li>Gestion de la disponibilité</li>
+                            <li>Gestion des demandes de course</li>
+                            <li>Notifications push en temps réel</li>
+                            <li>Tableau de bord chauffeur</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <!-- Non-functional Requirements -->
-        <div class="nfr" data-delay="5">
-            <div class="nfr__header">
-                <div class="nfr__badge">
-                    <span class="nfr__badge-dot"></span>
-                    Besoins non fonctionnels
-                </div>
-            </div>
-            <div class="nfr__grid">
-                <div class="nfr__item" data-delay="0">
-                    <span class="nfr__icon nfr__icon--red"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L4.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></span>
-                    <span class="nfr__name">Tolérance aux pannes</span>
-                </div>
-                <div class="nfr__item" data-delay="1">
-                    <span class="nfr__icon nfr__icon--blue"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></span>
-                    <span class="nfr__name">Mise à l'échelle</span>
-                </div>
-                <div class="nfr__item" data-delay="2">
-                    <span class="nfr__icon nfr__icon--green"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></span>
-                    <span class="nfr__name">Maintenabilité</span>
-                </div>
-                <div class="nfr__item" data-delay="3">
-                    <span class="nfr__icon nfr__icon--orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
-                    <span class="nfr__name">Temps de réponse &lt;300ms</span>
-                </div>
-                <div class="nfr__item" data-delay="4">
-                    <span class="nfr__icon nfr__icon--purple"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></span>
-                    <span class="nfr__name">Sécurité (TLS/SSO)</span>
-                </div>
-                <div class="nfr__item" data-delay="5">
-                    <span class="nfr__icon nfr__icon--cyan"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
-                    <span class="nfr__name">Disponibilité 99.5%</span>
-                </div>
-                <div class="nfr__item" data-delay="6">
-                    <span class="nfr__icon nfr__icon--pink"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-                    <span class="nfr__name">HLS &lt;3s démarrage</span>
-                </div>
-                <div class="nfr__item" data-delay="7">
-                    <span class="nfr__icon nfr__icon--teal"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span>
-                    <span class="nfr__name">Multi-plateforme</span>
-                </div>
-                <div class="nfr__item" data-delay="8">
-                    <span class="nfr__icon nfr__icon--indigo"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>
-                    <span class="nfr__name">Observabilité</span>
-                </div>
-                <div class="nfr__item" data-delay="9">
-                    <span class="nfr__icon nfr__icon--emerald"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-                    <span class="nfr__name">Fiabilité transactionnelle</span>
+                <div class="needs-table__row needs-table__row--emerald" data-delay="4">
+                    <div class="needs-table__cell needs-table__cell--actor">
+                        <span class="needs-table__dot needs-table__dot--emerald"></span>
+                        Voyageur
+                    </div>
+                    <div class="needs-table__cell needs-table__cell--role">Utilisateur final de la plateforme</div>
+                    <div class="needs-table__cell needs-table__cell--needs">
+                        <ul class="needs-table__list">
+                            <li>Exploration de la région</li>
+                            <li>Interaction avec LINA</li>
+                            <li>Authentification et profil</li>
+                            <li>Reels, livestreams et réservations</li>
+                            <li>Avis et notifications</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="navigation">
-            <span class="nav-year">12 / 32</span>
+            <span class="nav-year">12 / 33</span>
         </div>
 
     </div>

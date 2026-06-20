@@ -1,4 +1,4 @@
-/* Slide 16 : Interface Lina */
+/* Slide 16 : Interface Restaurant */
 
 document.addEventListener('DOMContentLoaded', () => {
 

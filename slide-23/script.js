@@ -1,4 +1,4 @@
-/* Slide 16 : Interface Reels */
+/* Slide 15 : Interface Livestream */
 
 document.addEventListener('DOMContentLoaded', () => {
 

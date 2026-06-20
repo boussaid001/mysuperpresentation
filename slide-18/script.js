@@ -1,4 +1,4 @@
-/* Slide 13 : Architecture du Projet SRTV */
+/* Slide 11 : Avantages Architecture Microservices */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -135,9 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const header         = document.querySelector('.slide__header');
     const title          = document.querySelector('.slide__title');
     const subtitle       = document.querySelector('.slide__subtitle');
-    const diagram        = document.querySelector('.arch-diagram');
-    const frame          = document.querySelector('.arch-frame');
-    const caption        = document.querySelector('.arch-caption');
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const diagramPanel   = document.querySelector('.diagram-panel');
+    const advantagesPanel = document.querySelector('.advantages-panel');
+    const cards          = document.querySelectorAll('.adv-card');
     const nav            = document.querySelector('.navigation');
 
     const setTransition = (el, props, delay) => {
@@ -160,19 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
     setTransition(subtitle,
         'opacity 0.7s ease, transform 0.7s ease', 750);
 
-    // 4. Diagram container
-    setTransition(diagram,
+    // 4. Content wrapper
+    setTransition(contentWrapper,
         'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 1000);
 
-    // 5. Frame - scale zoom in
-    setTransition(frame,
-        'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)', 1300);
+    // 5. Diagram panel (slides in from left)
+    setTransition(diagramPanel,
+        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 1200);
 
-    // 6. Caption fade up
-    setTransition(caption,
-        'opacity 0.6s ease, transform 0.6s ease', 1800);
+    // 6. Advantages panel (slides in from right)
+    setTransition(advantagesPanel,
+        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 1300);
 
-    // 7. Footer
+    // 7. Cards staggered
+    cards.forEach((card, i) => {
+        setTransition(card,
+            'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)', 1400 + i * 120);
+    });
+
+    // 6. Footer
     setTransition(nav,
         'opacity 0.8s ease, transform 0.8s ease', 2200);
 });

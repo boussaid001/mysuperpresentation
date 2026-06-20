@@ -1,4 +1,4 @@
-/* Slide 18 : Merci */
+/* Slide 17 : Perspectives */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -132,11 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
        ═══════════════════════════════════════════════════════════ */
     if (prefersReduced) return;
 
-    const badge      = document.querySelector('.merci-badge');
-    const title      = document.querySelector('.merci-title');
-    const subtitle   = document.querySelector('.merci-subtitle');
-    const divider    = document.querySelector('.merci-divider');
-    const info       = document.querySelector('.merci-info');
+    const header     = document.querySelector('.slide__header');
+    const title      = document.querySelector('.slide__title');
+    const subtitle   = document.querySelector('.slide__subtitle');
+    const cards      = document.querySelectorAll('.persp-card');
     const nav        = document.querySelector('.navigation');
 
     const setTransition = (el, props, delay) => {
@@ -147,27 +146,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }, delay);
     };
 
-    // 1. Badge scale
-    setTransition(badge,
-        'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)', 200);
+    // 1. Header
+    setTransition(header,
+        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 150);
 
     // 2. Title
     setTransition(title,
-        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 500);
+        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 400);
 
     // 3. Subtitle
     setTransition(subtitle,
-        'opacity 0.6s ease, transform 0.6s ease', 800);
+        'opacity 0.6s ease, transform 0.6s ease', 650);
 
-    // 4. Divider
-    setTransition(divider,
-        'opacity 0.5s ease, transform 0.5s ease', 1100);
+    // 4. Cards staggered
+    cards.forEach((card, i) => {
+        setTransition(card,
+            'opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1)', 1000 + i * 120);
+    });
 
-    // 5. Info
-    setTransition(info,
-        'opacity 0.6s ease, transform 0.6s ease', 1400);
-
-    // 6. Footer
+    // 5. Footer
     setTransition(nav,
-        'opacity 0.8s ease, transform 0.8s ease', 1900);
+        'opacity 0.8s ease, transform 0.8s ease', 2200);
 });

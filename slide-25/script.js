@@ -1,4 +1,4 @@
-/* Slide 16 : Interface Restaurant */
+/* Slide 16 : Interface Shopping */
 
 document.addEventListener('DOMContentLoaded', () => {
 

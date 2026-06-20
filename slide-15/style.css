@@ -1,4 +1,4 @@
-/* Slide 09 : Diagramme de cas d'utilisation global */
+/* Slide 12 : Méthodologie Scrum */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -57,9 +57,9 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 3vh 4vw 10vh;
+    padding: 3vh 3vw 10vh;
     gap: 3vh;
+    overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -69,27 +69,27 @@ html, body {
     text-align: center;
     flex-shrink: 0;
     opacity: 0;
-    transform: translateY(-25px);
+    transform: translateY(-20px);
 }
 
 .slide__title {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-size: clamp(2.4rem, 3.8vw, 3.6rem);
     font-weight: 800;
     color: #0f172a;
     line-height: 1.1;
     letter-spacing: -0.02em;
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(12px);
 }
 .slide__title::after {
     content: '';
     display: block;
-    width: 80px;
-    height: 5px;
+    width: 70px;
+    height: 4px;
     background: linear-gradient(90deg, #0077cc, #6366f1, #10b981);
     border-radius: 3px;
-    margin: 14px auto 0;
+    margin: 10px auto 0;
     transform: scaleX(0);
     animation: lineGrow 0.7s ease 1s forwards;
 }
@@ -97,84 +97,269 @@ html, body {
 
 .slide__subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
     font-weight: 400;
     color: #64748b;
-    margin-top: 0.6rem;
+    margin-top: 0.4rem;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   USE CASE DIAGRAM
+   CONTENT SPLIT
    ═══════════════════════════════════════════════════════════════ */
-.uc-section {
-    width: 95vw;
+.content-split {
+    width: 100%;
     max-width: 1600px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3.5rem;
+    flex: 1;
+    min-height: 0;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   METHODOLOGY GRID (Left)
+   ═══════════════════════════════════════════════════════════════ */
+.methodo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+    height: 100%;
+    align-content: center;
+}
+
+.methodo-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 2.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    box-shadow: 0 10px 32px rgba(15,23,42,0.07), 0 2px 6px rgba(15,23,42,0.04);
+    border: 1px solid rgba(0,119,204,0.08);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+    position: relative;
+}
+
+.methodo-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(15,23,42,0.1), 0 2px 6px rgba(15,23,42,0.04);
+}
+
+/* Selected card */
+.methodo-card--selected {
+    background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+    border: 2px solid rgba(16,185,129,0.45);
+    box-shadow: 0 12px 36px rgba(16,185,129,0.18), 0 2px 6px rgba(15,23,42,0.05);
+    transform: translateY(-2px) scale(1.02);
+    z-index: 2;
+}
+
+.methodo-card--selected:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 16px 40px rgba(16,185,129,0.18), 0 2px 8px rgba(15,23,42,0.05);
+}
+
+/* Ribbon */
+.methodo-ribbon {
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+    animation: ribbonBounce 2s ease-in-out infinite;
+}
+
+@keyframes ribbonBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Badge */
+.methodo-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+}
+
+.methodo-badge--selected {
+    color: #059669;
+    background: rgba(16,185,129,0.1);
+}
+
+/* Name */
+.methodo-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.methodo-card--selected .methodo-name {
+    color: #047857;
+}
+
+/* Pros & Cons */
+.methodo-procon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+}
+
+.procon-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #475569;
+    line-height: 1.45;
+}
+
+.procon-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.procon-pro .procon-dot { background: #10b981; }
+.procon-con .procon-dot { background: #ef4444; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SCRUM VISUAL (Right)
+   ═══════════════════════════════════════════════════════════════ */
+.scrum-visual {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    height: 100%;
     opacity: 0;
-    transform: translateY(20px);
-    flex: 1;
-    min-height: 0;
-    gap: 0.8rem;
+    transform: translateY(12px);
 }
 
-.uc-container {
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 1rem;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.6);
-    border: 1px solid rgba(0,119,204,0.08);
-    overflow: auto;
+/* Scrum Cycle */
+.scrum-cycle {
+    position: relative;
+    width: 460px;
+    height: 460px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 }
 
-.uc-container::-webkit-scrollbar { width: 8px; height: 8px; }
-.uc-container::-webkit-scrollbar-track { background: transparent; }
-.uc-container::-webkit-scrollbar-thumb { background: rgba(0,119,204,0.2); border-radius: 4px; }
-.uc-container::-webkit-scrollbar-thumb:hover { background: rgba(0,119,204,0.4); }
-
-.uc-zoom-wrapper {
-    display: inline-block;
-    transform-origin: center top;
-    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
-    cursor: zoom-in;
-    touch-action: none;
+.cycle-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-.uc-zoom-wrapper.panning {
-    cursor: grabbing;
+.cycle-center {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 50%;
+    box-shadow: 0 12px 32px rgba(16,185,129,0.35);
+    gap: 0.15rem;
 }
 
-.uc-diagram {
-    max-width: none;
-    max-height: none;
-    width: auto;
-    height: auto;
-    min-width: 600px;
-    min-height: 75vh;
-    display: block;
-    border-radius: 8px;
-    pointer-events: none;
-    user-select: none;
+.cycle-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
 }
 
-.uc-hint {
+.cycle-duration {
     font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #94a3b8;
-    background: rgba(255,255,255,0.8);
-    padding: 0.35rem 1rem;
-    border-radius: 100px;
-    border: 1px solid rgba(0,119,204,0.08);
-    backdrop-filter: blur(8px);
+    color: rgba(255,255,255,0.9);
+}
+
+.cycle-step {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotate(var(--angle)) translateY(-205px) translate(-50%, -50%);
+    transform-origin: 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 2;
+}
+
+/* Counter-rotate icon + label so they stay upright */
+.cycle-step .step-icon,
+.cycle-step .step-label {
+    transform: rotate(calc(var(--angle) * -1));
+    transform-origin: center center;
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0ea5e9;
+    border: 2.5px solid rgba(14,165,233,0.25);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.12), 0 0 0 4px rgba(14,165,233,0.08);
+}
+
+.step-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.step-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    background: rgba(255,255,255,0.98);
+    padding: 0.35rem 0.9rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(15,23,42,0.08);
+    border: 1px solid rgba(14,165,233,0.12);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -182,7 +367,7 @@ html, body {
    ═══════════════════════════════════════════════════════════════ */
 .navigation {
     position: fixed;
-    bottom: 1.6rem;
+    bottom: 1.4rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -193,7 +378,7 @@ html, body {
     display: inline-flex;
     align-items: center;
     font-family: 'Outfit', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #64748b;
     background: rgba(255,255,255,0.9);
@@ -213,14 +398,16 @@ html, body {
     .slide__header,
     .slide__title,
     .slide__subtitle,
-    .uc-section,
+    .content-split,
+    .methodo-grid,
+    .methodo-card,
+    .scrum-visual,
     .navigation {
         opacity: 1 !important;
         transform: none !important;
         animation: none !important;
     }
 }
-
 
 
 /* Title visibility enhancement */

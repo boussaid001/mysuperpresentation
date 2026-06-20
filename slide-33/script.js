@@ -1,4 +1,4 @@
-/* Slide 09 : Diagramme de cas d'utilisation global */
+/* Slide 19 : Démonstration */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -132,11 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
        ═══════════════════════════════════════════════════════════ */
     if (prefersReduced) return;
 
-    const header    = document.querySelector('.slide__header');
-    const title     = document.querySelector('.slide__title');
-    const subtitle  = document.querySelector('.slide__subtitle');
-    const ucSection = document.querySelector('.uc-section');
-    const nav       = document.querySelector('.navigation');
+    const badge      = document.querySelector('.demo-badge');
+    const title      = document.querySelector('.demo-title');
+    const subtitle   = document.querySelector('.demo-subtitle');
+    const features   = document.querySelector('.demo-features');
+    const cta        = document.querySelector('.demo-cta');
+    const nav        = document.querySelector('.navigation');
 
     const setTransition = (el, props, delay) => {
         setTimeout(() => {
@@ -146,89 +147,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }, delay);
     };
 
-    // 1. Header
-    setTransition(header,
-        'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 150);
+    // 1. Badge scale
+    setTransition(badge,
+        'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)', 200);
 
     // 2. Title
     setTransition(title,
-        'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 500);
+        'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)', 500);
 
     // 3. Subtitle
     setTransition(subtitle,
-        'opacity 0.7s ease, transform 0.7s ease', 750);
+        'opacity 0.6s ease, transform 0.6s ease', 800);
 
-    // 4. Use Case Diagram
-    setTransition(ucSection,
-        'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 1000);
+    // 4. Features
+    setTransition(features,
+        'opacity 0.6s ease, transform 0.6s ease', 1100);
 
-    // 5. Footer
+    // 5. CTA
+    setTransition(cta,
+        'opacity 0.5s ease, transform 0.5s ease', 1400);
+
+    // 6. Footer
     setTransition(nav,
-        'opacity 0.8s ease, transform 0.8s ease', 1800);
-
-    /* ═══════════════════════════════════════════════════════════
-       ZOOM & PAN
-       ═══════════════════════════════════════════════════════════ */
-    const zoomWrapper = document.getElementById('zoomWrapper');
-    const container   = document.querySelector('.uc-container');
-    let scale = 1;
-    let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
-
-    // Wheel zoom
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? -0.15 : 0.15;
-        scale = Math.max(1, Math.min(4, scale + delta));
-        zoomWrapper.style.transform = `scale(${scale})`;
-        zoomWrapper.style.cursor = scale > 1 ? 'grab' : 'zoom-in';
-    }, { passive: false });
-
-    // Click to toggle zoom
-    container.addEventListener('click', (e) => {
-        if (isDragging) return;
-        if (scale === 1) {
-            scale = 2.2;
-            zoomWrapper.style.transform = `scale(${scale})`;
-            zoomWrapper.style.cursor = 'grab';
-        } else {
-            scale = 1;
-            zoomWrapper.style.transform = `scale(${scale})`;
-            zoomWrapper.style.cursor = 'zoom-in';
-            // Reset scroll when zooming out
-            container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-        }
-    });
-
-    // Pan (drag to scroll)
-    container.addEventListener('mousedown', (e) => {
-        if (scale <= 1) return;
-        isDragging = false;
-        startX = e.pageX - container.offsetLeft;
-        startY = e.pageY - container.offsetTop;
-        scrollLeft = container.scrollLeft;
-        scrollTop  = container.scrollTop;
-        zoomWrapper.classList.add('panning');
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!zoomWrapper.classList.contains('panning')) return;
-        e.preventDefault();
-        isDragging = true;
-        const x = e.pageX - container.offsetLeft;
-        const y = e.pageY - container.offsetTop;
-        const walkX = (x - startX) * 1.5;
-        const walkY = (y - startY) * 1.5;
-        container.scrollLeft = scrollLeft - walkX;
-        container.scrollTop  = scrollTop  - walkY;
-    });
-
-    container.addEventListener('mouseup', () => {
-        zoomWrapper.classList.remove('panning');
-        setTimeout(() => { isDragging = false; }, 50);
-    });
-
-    container.addEventListener('mouseleave', () => {
-        zoomWrapper.classList.remove('panning');
-    });
+        'opacity 0.8s ease, transform 0.8s ease', 1900);
 });

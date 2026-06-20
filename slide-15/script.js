@@ -1,4 +1,4 @@
-/* Slide 09 : Diagramme de cas d'utilisation global */
+/* Slide 12 : Méthodologie Scrum */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -132,11 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
        ═══════════════════════════════════════════════════════════ */
     if (prefersReduced) return;
 
-    const header    = document.querySelector('.slide__header');
-    const title     = document.querySelector('.slide__title');
-    const subtitle  = document.querySelector('.slide__subtitle');
-    const ucSection = document.querySelector('.uc-section');
-    const nav       = document.querySelector('.navigation');
+    const header      = document.querySelector('.slide__header');
+    const title       = document.querySelector('.slide__title');
+    const subtitle    = document.querySelector('.slide__subtitle');
+    const content     = document.querySelector('.content-split');
+    const cards       = document.querySelectorAll('.methodo-card');
+    const scrumVisual = document.querySelector('.scrum-visual');
+    const nav         = document.querySelector('.navigation');
 
     const setTransition = (el, props, delay) => {
         setTimeout(() => {
@@ -158,77 +160,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setTransition(subtitle,
         'opacity 0.7s ease, transform 0.7s ease', 750);
 
-    // 4. Use Case Diagram
-    setTransition(ucSection,
+    // 4. Content split
+    setTransition(content,
         'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 1000);
 
-    // 5. Footer
+    // 5. Cards staggered
+    cards.forEach((card, i) => {
+        setTransition(card,
+            'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)', 1200 + i * 180);
+    });
+
+    // 6. Scrum visual
+    setTransition(scrumVisual,
+        'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)', 2000);
+
+    // 7. Footer
     setTransition(nav,
-        'opacity 0.8s ease, transform 0.8s ease', 1800);
-
-    /* ═══════════════════════════════════════════════════════════
-       ZOOM & PAN
-       ═══════════════════════════════════════════════════════════ */
-    const zoomWrapper = document.getElementById('zoomWrapper');
-    const container   = document.querySelector('.uc-container');
-    let scale = 1;
-    let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
-
-    // Wheel zoom
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? -0.15 : 0.15;
-        scale = Math.max(1, Math.min(4, scale + delta));
-        zoomWrapper.style.transform = `scale(${scale})`;
-        zoomWrapper.style.cursor = scale > 1 ? 'grab' : 'zoom-in';
-    }, { passive: false });
-
-    // Click to toggle zoom
-    container.addEventListener('click', (e) => {
-        if (isDragging) return;
-        if (scale === 1) {
-            scale = 2.2;
-            zoomWrapper.style.transform = `scale(${scale})`;
-            zoomWrapper.style.cursor = 'grab';
-        } else {
-            scale = 1;
-            zoomWrapper.style.transform = `scale(${scale})`;
-            zoomWrapper.style.cursor = 'zoom-in';
-            // Reset scroll when zooming out
-            container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-        }
-    });
-
-    // Pan (drag to scroll)
-    container.addEventListener('mousedown', (e) => {
-        if (scale <= 1) return;
-        isDragging = false;
-        startX = e.pageX - container.offsetLeft;
-        startY = e.pageY - container.offsetTop;
-        scrollLeft = container.scrollLeft;
-        scrollTop  = container.scrollTop;
-        zoomWrapper.classList.add('panning');
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!zoomWrapper.classList.contains('panning')) return;
-        e.preventDefault();
-        isDragging = true;
-        const x = e.pageX - container.offsetLeft;
-        const y = e.pageY - container.offsetTop;
-        const walkX = (x - startX) * 1.5;
-        const walkY = (y - startY) * 1.5;
-        container.scrollLeft = scrollLeft - walkX;
-        container.scrollTop  = scrollTop  - walkY;
-    });
-
-    container.addEventListener('mouseup', () => {
-        zoomWrapper.classList.remove('panning');
-        setTimeout(() => { isDragging = false; }, 50);
-    });
-
-    container.addEventListener('mouseleave', () => {
-        zoomWrapper.classList.remove('panning');
-    });
+        'opacity 0.8s ease, transform 0.8s ease', 2400);
 });

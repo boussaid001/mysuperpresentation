@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide 14 : CI/CD Pipeline SRTV</title>
+    <title>Section 06 : CI / CD & Déploiement</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-start: #10b981;
+            --accent-end: #14b8a6;
+            --glow: rgba(16,185,129,0.35);
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../nav-hint.css">
 </head>
@@ -16,53 +23,15 @@
     <div class="ambient-orb orb-2"></div>
     <div class="ambient-orb orb-3"></div>
 
-    <div class="slide">
-        <header class="slide__header">
-            <h1 class="slide__title">Pipeline CI / CD SRTV</h1>
-            <p class="slide__subtitle">De Git au VPS : d&eacute;ploiement continu des microservices</p>
-        </header>
-
-        <div class="cicd-stage" data-delay="1">
-            <div class="cicd-image" data-delay="2">
-                <img src="../cicdarchitecture.jpeg" alt="Pipeline CI/CD SRTV" class="cicd-img">
-                <span class="cicd-caption">Architecture de la pipeline  :  Git &rarr; Jenkins &rarr; Docker &rarr; VPS</span>
-            </div>
-
-            <div class="cicd-image" data-delay="3" id="cicd-thumb">
-                <img src="../cicdpipline.jpeg" alt="Console Jenkins" class="cicd-img">
-                <span class="cicd-caption">Console Jenkins  :  ex&eacute;cution de <strong>srtv-pipeline</strong></span>
-            </div>
-        </div>
-
-        <div class="navigation">
-            <span class="nav-year">20 / 32</span>
-        </div>
+    <div class="section">
+        <div class="section__eyebrow">Section 06</div>
+        <div class="section__number">06</div>
+        <h1 class="section__title">CI / CD & Déploiement</h1>
+        <div class="section__line"></div>
     </div>
 
-    <!-- Full-page Image Gallery -->
-    <div class="gallery" id="gallery">
-        <div class="gallery__backdrop"></div>
-        <div class="gallery__stage">
-            <img class="gallery__img" src="../cicdarchitecture.jpeg" alt="Pipeline CI/CD SRTV">
-            <img class="gallery__img" src="../cicdpipline.jpeg" alt="Console Jenkins">
-        </div>
-
-        <div class="gallery__controls">
-            <button class="gallery__arrow gallery__arrow--left" id="gallery-prev" aria-label="Image pr&eacute;c&eacute;dente">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <div class="gallery__meta">
-                <span class="gallery__counter" id="gallery-counter">1 / 2</span>
-                <div class="gallery__progress"><div class="gallery__progress-fill" id="gallery-progress"></div></div>
-            </div>
-            <button class="gallery__arrow gallery__arrow--right" id="gallery-next" aria-label="Image suivante">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-        </div>
-
-        <button class="gallery__close" id="gallery-close" aria-label="Fermer la galerie">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
+    <div class="navigation">
+        <span class="nav-year">20 / 33</span>
     </div>
 
     <script src="script.js"></script>

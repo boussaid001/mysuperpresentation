@@ -1,4 +1,4 @@
-/* Slide 17 : Perspectives */
+/* Slide 16 : Conclusion */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const header     = document.querySelector('.slide__header');
     const title      = document.querySelector('.slide__title');
     const subtitle   = document.querySelector('.slide__subtitle');
-    const cards      = document.querySelectorAll('.persp-card');
+    const cards      = document.querySelectorAll('.concl-card');
+    const summary    = document.querySelector('.concl-summary');
     const nav        = document.querySelector('.navigation');
 
     const setTransition = (el, props, delay) => {
@@ -161,10 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Cards staggered
     cards.forEach((card, i) => {
         setTransition(card,
-            'opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1)', 1000 + i * 120);
+            'opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1)', 1000 + i * 140);
     });
 
-    // 5. Footer
+    // 5. Summary
+    setTransition(summary,
+        'opacity 0.6s ease, transform 0.6s ease', 1700);
+
+    // 6. Footer
     setTransition(nav,
         'opacity 0.8s ease, transform 0.8s ease', 2200);
 });

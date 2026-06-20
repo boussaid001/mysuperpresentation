@@ -80,24 +80,27 @@ html, body {
 .slide__badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.6rem;
     font-family: 'Outfit', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: #0077cc;
-    background: rgba(0,119,204,0.08);
-    border: 1px solid rgba(0,119,204,0.15);
-    border-radius: 100px;
-    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 119, 204, 0.12);
+    border-radius: 14px;
+    padding: 0.55rem 1.2rem;
+    box-shadow: 0 4px 18px rgba(0, 119, 204, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .slide__badge-dot {
-    width: 7px; height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0077cc, #3b82f6);
-    animation: pulse 2s ease-in-out infinite;
+    background: linear-gradient(135deg, #0077cc, #6366f1);
+    box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.12);
+    animation: pulse 2.5s ease-in-out infinite;
 }
 
 .slide__title {

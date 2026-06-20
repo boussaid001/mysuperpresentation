@@ -125,28 +125,14 @@ html, body {
 .cover__brandmark-ring {
     width: 300px;
     height: 150px;
-    border-radius: 24px;
-    background: #ffffff;
-    padding: 14px 22px;
-    box-shadow: 0 20px 50px rgba(0,119,204,0.15), 0 0 0 1px rgba(0,119,204,0.08);
+    border-radius: 16px;
+    background: transparent;
+    padding: 0;
+    box-shadow: 0 20px 50px rgba(0,119,204,0.15);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.cover__brandmark-ring::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 26px;
-    padding: 3px;
-    background: linear-gradient(135deg, #0077cc, #6366f1, #10b981);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    z-index: -1;
 }
 
 .cover__brandmark-img {
@@ -372,6 +358,8 @@ html, body {
     .cover__brandmark-ring {
         width: 220px;
         height: 100px;
+        background: transparent;
+        padding: 0;
     }
     .cover__footer {
         max-width: 100%;

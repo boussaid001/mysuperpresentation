@@ -4,7 +4,7 @@
     const match = path.match(/slide-(\d+)/);
     const current = match ? parseInt(match[1], 10) : 0;
     const isRoot = !match && (path.endsWith('index.html') || path.endsWith('/'));
-    const total = 32;
+    const total = 33;
 
     function slideUrl(n) {
         return `slide-${String(n).padStart(2, '0')}/index.html`;
@@ -41,17 +41,8 @@
         }
     });
 
-    // On-screen arrow hints (subtle)
-    const hint = document.createElement('div');
-    hint.className = 'nav-hint';
-    hint.innerHTML = `
-        <span class="nav-hint__key">←</span>
-        <span class="nav-hint__key">→</span>
-    `;
-    document.body.appendChild(hint);
-
-    // Small SRTV logo on all slides (not on root index)
-    if (match) {
+    // Small SRTV logo on all slides except the cover (not on root index)
+    if (match && current > 1) {
         const logo = document.createElement('img');
         logo.className = 'slide-logo';
         logo.src = '../assets/logosrtv.png';
