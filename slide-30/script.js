@@ -159,17 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTransition(subtitle,
         'opacity 0.6s ease, transform 0.6s ease', 650);
 
-    // 4. Cards staggered
-    cards.forEach((card, i) => {
-        setTransition(card,
-            'opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1)', 1000 + i * 140);
-    });
-
-    // 5. Summary
+    // 4. Summary (hero)
     setTransition(summary,
-        'opacity 0.6s ease, transform 0.6s ease', 1700);
+        'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)', 900);
 
-    // 6. Footer
+    // 5. Footer
     setTransition(nav,
-        'opacity 0.8s ease, transform 0.8s ease', 2200);
+        'opacity 0.8s ease, transform 0.8s ease', 1500);
 });

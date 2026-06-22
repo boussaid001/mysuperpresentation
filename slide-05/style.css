@@ -268,28 +268,34 @@ html, body {
     min-width: 80px;
 }
 
-.gallery__counter {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 0.05em;
+.gallery__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.gallery__progress {
-    width: 100px;
-    height: 3px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 2px;
-    overflow: hidden;
+.gallery__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+    flex-shrink: 0;
 }
 
-.gallery__progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #0077cc, #6366f1);
-    border-radius: 2px;
-    transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+.gallery__dot.is-active {
+    background: linear-gradient(135deg, #0077cc, #6366f1);
+    border-color: transparent;
+    transform: scale(1.35);
+    width: 22px;
+    border-radius: 4px;
+}
+
+.gallery__dot:hover:not(.is-active) {
+    background: rgba(255,255,255,0.65);
+    transform: scale(1.15);
 }
 
 /* Close button */

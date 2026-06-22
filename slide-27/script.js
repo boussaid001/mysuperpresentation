@@ -198,6 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btnPrev.addEventListener('click', () => prevImage());
     gallery.querySelector('.gallery__backdrop').addEventListener('click', closeGallery);
 
+    // Hook for nav.js click navigation
+    window.__galleryHandleClick = function () {
+        if (!galleryActive) { openGallery(); return true; }
+        if (nextImage()) { return true; }
+        closeGallery(); return false;
+    };
+
     /* ═══════════════════════════════════════════════════════════
        KEYBOARD INTERCEPT (capture phase : before nav.js)
        ═══════════════════════════════════════════════════════════ */

@@ -19,10 +19,6 @@
     <div class="slide">
 
         <header class="slide__header">
-            <div class="slide__badge">
-                <span class="slide__badge-dot"></span>
-                <span>Présentation du projet</span>
-            </div>
             <h1 class="slide__title">Smart Regional Television</h1>
             <p class="slide__subtitle">La première plateforme multimédia régionale intelligente pour le Sahel tunisien</p>
         </header>
@@ -41,9 +37,7 @@
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(1).jpg" alt="SRTV Presentation 2">
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(2).jpg" alt="SRTV Presentation 3">
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(3).jpg" alt="SRTV Presentation 4">
-            <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(4).jpg" alt="SRTV Presentation 5">
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(5).jpg" alt="SRTV Presentation 6">
-            <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(6).jpg" alt="SRTV Presentation 7">
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(7).jpg" alt="SRTV Presentation 8">
             <img class="gallery__img" src="../assets/Introduction/SRTV-Presentation(8).jpg" alt="SRTV Presentation 9">
         </div>
@@ -53,8 +47,15 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="gallery__meta">
-                <span class="gallery__counter" id="gallery-counter">1 / 9</span>
-                <div class="gallery__progress"><div class="gallery__progress-fill" id="gallery-progress"></div></div>
+                <div class="gallery__dots" id="gallery-dots">
+                    <span class="gallery__dot is-active" data-index="0"></span>
+                    <span class="gallery__dot" data-index="1"></span>
+                    <span class="gallery__dot" data-index="2"></span>
+                    <span class="gallery__dot" data-index="3"></span>
+                    <span class="gallery__dot" data-index="4"></span>
+                    <span class="gallery__dot" data-index="5"></span>
+                    <span class="gallery__dot" data-index="6"></span>
+                </div>
             </div>
             <button class="gallery__arrow gallery__arrow--right" id="gallery-next" aria-label="Image suivante">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>

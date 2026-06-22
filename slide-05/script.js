@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
        ═══════════════════════════════════════════════════════════ */
     const gallery      = document.getElementById('gallery');
     const galleryImgs  = gallery.querySelectorAll('.gallery__img');
-    const counterEl    = document.getElementById('gallery-counter');
-    const progressEl   = document.getElementById('gallery-progress');
+    const dotsEl       = document.getElementById('gallery-dots');
+    const dots         = dotsEl ? dotsEl.querySelectorAll('.gallery__dot') : [];
     const btnPrev      = document.getElementById('gallery-prev');
     const btnNext      = document.getElementById('gallery-next');
     const btnClose     = document.getElementById('gallery-close');
@@ -175,10 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.classList.add('is-exit');
             }
         });
-        counterEl.textContent = `${currentIndex + 1} / ${TOTAL_IMGS}`;
-        progressEl.style.width = `${((currentIndex + 1) / TOTAL_IMGS) * 100}%`;
+        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === currentIndex));
         btnPrev.classList.toggle('is-disabled', currentIndex === 0);
         btnNext.classList.toggle('is-disabled', currentIndex === TOTAL_IMGS - 1);
+        syncLinaWithGallery();
     }
 
     function openGallery() {
@@ -216,11 +216,71 @@ document.addEventListener('DOMContentLoaded', () => {
         return true; // handled (closed gallery instead of going to prev slide)
     }
 
+    // Dot click: jump to image
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { currentIndex = i; updateGalleryUI(); }));
+
     // Click handlers
     btnClose.addEventListener('click', closeGallery);
     btnNext.addEventListener('click', () => nextImage());
     btnPrev.addEventListener('click', () => prevImage());
     gallery.querySelector('.gallery__backdrop').addEventListener('click', closeGallery);
+
+    // Hook for nav.js click navigation
+    window.__galleryHandleClick = function () {
+        if (!galleryActive) {
+            openGallery();
+            return true; // handled
+        }
+        if (nextImage()) {
+            return true; // advanced image
+        }
+        closeGallery();
+        return false; // at end — let nav.js go to next slide
+    };
+
+    /* ═══════════════════════════════════════════════════════════
+       LINA AUDIO NARRATION (synchronized with gallery images)
+       ═══════════════════════════════════════════════════════════ */
+    const LINA_TRACKS = [
+        '../LINA/Slide1.mp3',
+        '../LINA/Slide2.mp3',
+        '../LINA/Slide3.mp3',
+    ];
+
+    let linaAudio = null;
+
+    function stopLina() {
+        if (linaAudio) {
+            linaAudio.pause();
+            linaAudio.onended = null;
+            linaAudio = null;
+        }
+    }
+
+    function playLinaTrack(trackIndex) {
+        stopLina();
+        if (trackIndex < 0 || trackIndex >= LINA_TRACKS.length) return;
+        linaAudio = new Audio(LINA_TRACKS[trackIndex]);
+        linaAudio.volume = 1;
+        linaAudio.play().catch(() => {}); // ignore autoplay block
+    }
+
+    // Play LINA tracks automatically for specific images
+    function syncLinaWithGallery() {
+        if (currentIndex === 4) {
+            playLinaTrack(0); // SRTV-Presentation(5).jpg -> Slide1.mp3
+        } else if (currentIndex === 5) {
+            playLinaTrack(1); // SRTV-Presentation(7).jpg -> Slide2.mp3
+        } else if (currentIndex === 6) {
+            playLinaTrack(2); // SRTV-Presentation(8).jpg -> Slide3.mp3
+        } else {
+            stopLina();
+        }
+    }
+
+    // Stop audio if gallery is manually closed
+    btnClose.addEventListener('click', stopLina);
+    gallery.querySelector('.gallery__backdrop').addEventListener('click', stopLina);
 
     /* ═══════════════════════════════════════════════════════════
        KEYBOARD INTERCEPT (capture phase : before nav.js)
